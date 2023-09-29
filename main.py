@@ -1,9 +1,6 @@
 from flask import Flask, render_template, request,session,redirect,abort,flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_paginate import Pagination, get_page_parameter
-from datetime import datetime
 from datetime import date
-import datetime
 from flask_mail import Mail
 from werkzeug.utils import secure_filename
 import imghdr

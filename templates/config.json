@@ -1,0 +1,21 @@
+{
+    "params":
+    {
+        "local_server":"True",
+        "local_uri":"mysql://root:@localhost/blogpost",
+        "prod_uri":"mysql://root:@localhost/blogpost",
+        "fb_url":"https://facebook.com/blogpost",
+        "tw_url":"https://twitter.com/blogpost",
+        "gh_url":"https://github.com/blogpost",
+        "blog_name":"BlogPost-W",
+        "gmail-user":"unkownusername000@gmail.com",
+        "gmail-AppPassword":"sakbynhxghrruizz",
+        "about_us":"This is my first blog page!!!",
+        "no_of_post":2,
+        "login_image":"favicon.ico",
+        "admin_user":"W",
+        "admin_pass":"123@W",
+        "uploader_location":"C:\\Users\\Laxman\\Desktop\\project\\flask\\static\\assets\\img"
+    }
+
+}

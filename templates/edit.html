@@ -1,0 +1,75 @@
+{% extends "layout1.html" %} 
+{% block body %}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/home.jpg') }}')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>Admin Panel</h1>
+          <span class="subheading">Manage your posts and change them</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5" style="padding:18px">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7" >
+
+<h1>Basic Actions</h1>
+<a href="/dashboard"> <button class='btn btn-primary'> Dashboard home </button></a>
+<a href="/logout"> <button class='btn btn-primary'> Logout</button></a>
+<hr>
+
+<h1>Add/Edit Posts</h1>
+
+<form id="contactForm" action="/edit/{{sno}}" method="post">
+  <div class="form-floating">
+      <input class="form-control" id="title" name="title" type="text" placeholder="Enter title..."  required data-validation-required-message="Enter title" value="{{post.title}}"/>
+      <label>Title</label>
+      <p class="help-block text-danger"></p>
+  </div>
+
+  <div class="form-floating">
+      <input class="form-control" id="tline" name="tline" type="text" placeholder="Enter your tagline..." required data-validation-required-message="Enter your tagline" value="{{post.tagline}}"/>
+      <label>Tagline</label>
+      <p class="help-block text-danger"></p>
+  </div>
+
+  <div class="form-floating">
+      <input class="form-control" id="slug" name="slug" type="text" placeholder="Enter slug..." required data-validation-required-message="Enter your slug." value="{{post.slug}}"/>
+      <label>Slug</label>
+      <p class="help-block text-danger"></p>
+  </div>
+
+  <div class="form-floating">
+      <textarea class="form-control" id="content" name="content" style="height: 10rem" required data-validation-required-message="Enter your content.">{{post.content}}</textarea>
+      <label>Content</label>
+      <p class="help-block text-danger"></p>
+  </div>
+
+  <div class="form-floating">
+    <input class="form-control" id="img_file" name="img_file" placeholder="Image filename" value="{{post.img_file}}"></input>
+    <label>Image File</label>
+    <p class="help-block text-danger"></p>
+</div>
+  <br />
+  
+  <!-- Submit Button-->
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
+  </div>
+</form>
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

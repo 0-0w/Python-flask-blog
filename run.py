@@ -4,5 +4,5 @@
 
 from myapp import create_web
 
-app = create_web()
+my_app = create_web()
 

@@ -15,7 +15,7 @@
         "login_image":"favicon.ico",
         "admin_user":"W",
         "admin_pass":"123@W",
-        "uploader_location":"C:\\Users\\Laxman\\Desktop\\project\\flask\\static\\assets\\img"
+        "uploader_location":"C:\\Users\\Laxman\\Desktop\\project\\flask\\myapp\\static\\assets\\img"
     }
 
 }

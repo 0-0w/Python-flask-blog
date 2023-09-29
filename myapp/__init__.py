@@ -9,7 +9,7 @@ import math
 import json
 
 
-with open('templates/config.json','r') as c:
+with open('myapp/templates/config.json','r') as c:
     params= json.load(c)["params"]
 
 

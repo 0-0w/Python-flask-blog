@@ -2,6 +2,8 @@ from flask import Flask, render_template, request,session,redirect,abort,flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_paginate import Pagination, get_page_parameter
 from datetime import datetime
+from datetime import date
+import datetime
 from flask_mail import Mail
 from werkzeug.utils import secure_filename
 import imghdr
@@ -9,9 +11,10 @@ import os
 import math
 import json
 
-local_server=True
+
 with open('templates/config.json','r') as c:
     params= json.load(c)["params"]
+
 
 app = Flask(__name__)
 app.secret_key = 'super-secret-key'
@@ -25,22 +28,24 @@ app.config.update(
     MAIL_USERNAME=params["gmail-user"],
     MAIL_PASSWORD=params["gmail-AppPassword"]
 )
-
 mail=Mail(app)
 
+
+local_server=False
 if local_server:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
 
 db = SQLAlchemy(app)
+# postgres://blogpost_rb3i_user:Tp6g6dc15AjRRIMMb0FDkEALwxTJVy9m@dpg-ckb5ug6smu8c73b3onkg-a.oregon-postgres.render.com/blogpost_rb3i
 
 class Contacts(db.Model):
     sno = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     phone = db.Column(db.String(12), nullable=False)
     mes = db.Column(db.String(120), nullable=False)
-    date = db.Column(db.String(12), nullable=True)
+    date = db.Column(db.String(20), nullable=True)
     email = db.Column(db.String(20), nullable=False)
 
 class Posts(db.Model):
@@ -48,10 +53,12 @@ class Posts(db.Model):
     title = db.Column(db.String(80), nullable=False)
     tagline = db.Column(db.String(80), nullable=False)
     slug = db.Column(db.String(21), nullable=False)
-    content = db.Column(db.String(120), nullable=False)
+    content = db.Column(db.String(500), nullable=False)
     img_file = db.Column(db.String(120), nullable=False)
     date = db.Column(db.String(12), nullable=True)
 
+# with app.app_context():
+#     db.create_all()
 
 @app.route("/")
 def home():
@@ -108,10 +115,10 @@ def edit(sno):
             slug = request.form.get('slug')
             content = request.form.get('content')
             img_file = request.form.get('img_file')
-            date = datetime.now()
+            date_t = date.today()
 
             if sno=='0':
-                post = Posts(title=box_title, slug=slug, content=content, tagline=tline, img_file=img_file, date=date)
+                post = Posts(title=box_title, slug=slug, content=content, tagline=tline, img_file=img_file, date=date_t)
                 db.session.add(post)
                 db.session.commit()
             else:
@@ -121,7 +128,7 @@ def edit(sno):
                 post.slug = slug
                 post.content = content
                 post.img_file = img_file
-                post.date = date
+                post.date = date_t
                 db.session.commit()
                 return redirect('/edit/'+sno)
 
@@ -176,7 +183,7 @@ def contact():
         email = request.form.get('email')
         phone = request.form.get('phone')
         message = request.form.get('message')
-        entry = Contacts(name=name, phone = phone, mes = message, date= datetime.now(),email = email )
+        entry = Contacts(name=name, phone = phone, mes = message, date= date.today(),email = email )
         db.session.add(entry)
         db.session.commit()
         flash("Message sent successfully!")
